@@ -9,49 +9,47 @@ export class TasksService {
   private tasks: Task[] = [];
 
   create(dto: CreateTaskDto): Task {
-    const timestamp = new Date();
+    const now = new Date();
     const task: Task = {
       id: randomUUID(),
       title: dto.title,
       status: dto.status ?? 'todo',
       dueDate: dto.dueDate,
-      createdAt: timestamp,
-      updatedAt: timestamp,
+      createdAt: now,
+      updatedAt: now,
     };
-
-    this.tasks.push(task);
+    this.tasks = [...this.tasks, task];
     return task;
   }
 
   findAll(): Task[] {
-    return this.tasks;
+    return [...this.tasks];
   }
 
   findOne(id: string): Task {
-    const task = this.tasks.find((item) => item.id === id);
+    const task = this.tasks.find((t) => t.id === id);
     if (!task) {
-      throw new NotFoundException(`Task with id ${id} not found`);
+      throw new NotFoundException(`Task ${id} not found`);
     }
     return task;
   }
 
   update(id: string, dto: UpdateTaskDto): Task {
-    const task = this.findOne(id);
-    const updatedTask: Task = {
-      ...task,
+    const current = this.findOne(id);
+    const updated: Task = {
+      ...current,
       ...dto,
       updatedAt: new Date(),
     };
-    const index = this.tasks.findIndex((item) => item.id === id);
-    this.tasks[index] = updatedTask;
-    return updatedTask;
+    this.tasks = this.tasks.map((t) => (t.id === id ? updated : t));
+    return updated;
   }
 
   remove(id: string): void {
-    const index = this.tasks.findIndex((item) => item.id === id);
-    if (index === -1) {
-      throw new NotFoundException(`Task with id ${id} not found`);
+    const before = this.tasks.length;
+    this.tasks = this.tasks.filter((t) => t.id !== id);
+    if (this.tasks.length === before) {
+      throw new NotFoundException(`Task ${id} not found`);
     }
-    this.tasks.splice(index, 1);
   }
 }
