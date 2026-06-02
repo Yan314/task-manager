@@ -96,3 +96,13 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+## Routes
+
+L'application expose les routes suivantes :
+
+1. GET /tasks - Lister toutes les tâches (200 OK)
+2. GET /tasks/:id - Récupérer une tâche (200 OK / 404 Not Found)
+3. POST /tasks - Créer une nouvelle tâche (201 Created)
+4. PATCH /tasks/:id - Mettre à jour une tâche (200 OK / 404 Not Found)
+5. DELETE /tasks/:id - Supprimer une tâche (204 No Content / 404 Not Found)

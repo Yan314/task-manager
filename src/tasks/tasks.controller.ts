@@ -28,6 +28,7 @@ export class TasksController {
   }
 
   @Post()
+  @HttpCode(HttpStatus.CREATED)
   create(@Body() createTaskDto: CreateTaskDto) {
     return this.tasksService.create(createTaskDto);
   }
