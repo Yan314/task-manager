@@ -106,3 +106,6 @@ L'application expose les routes suivantes :
 3. POST /tasks - Créer une nouvelle tâche (201 Created)
 4. PATCH /tasks/:id - Mettre à jour une tâche (200 OK / 404 Not Found)
 5. DELETE /tasks/:id - Supprimer une tâche (204 No Content / 404 Not Found)
+
+Branches :
+J1 : j1-crud-memoire
